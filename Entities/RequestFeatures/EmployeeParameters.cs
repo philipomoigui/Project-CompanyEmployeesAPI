@@ -12,5 +12,6 @@
         public bool ValidAgeRange => MaxAge > MinAge;
 
         public string SearchTerm { get; set; }
+        public string fields { get; set; }
     }
 }
