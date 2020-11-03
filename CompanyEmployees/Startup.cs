@@ -43,6 +43,7 @@ namespace CompanyEmployees
             services.AddScoped<ValidateMediaTypeAttribute>();
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
             services.AddScoped<EmployeeLinks>();
+            services.ConfigureApiVersion();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
