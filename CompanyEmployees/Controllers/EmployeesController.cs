@@ -53,6 +53,7 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpGet("{id}", Name = "GetEmployeeForCompany")]
+        [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id)
         {
             var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
