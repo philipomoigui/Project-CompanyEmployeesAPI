@@ -1,6 +1,7 @@
 using AutoMapper;
 using CompanyEmployees.ActionFilters;
 using CompanyEmployees.Extensions;
+using CompanyEmployees.Utility;
 using Contracts;
 using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Builder;
@@ -39,7 +40,9 @@ namespace CompanyEmployees
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidateCompanyExistsAttribute>();
             services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
+            services.AddScoped<ValidateMediaTypeAttribute>();
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
+            services.AddScoped<EmployeeLinks>();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

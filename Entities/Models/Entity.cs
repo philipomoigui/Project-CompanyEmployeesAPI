@@ -83,11 +83,12 @@ namespace Entities.Models
                     WriteLinksToXml(nameof(val.Rel), val.Rel, writer);
                     writer.WriteEndElement();
                 }
-            } else
+            }
+            else
             {
                 writer.WriteString(value.ToString());
             }
-            
+
             writer.WriteEndElement();
         }
 

@@ -10,7 +10,7 @@ namespace CompanyEmployees.ActionFilters
 {
     public class ValidateMediaTypeAttribute : IActionFilter
     {
-        public void OnActionExecuted(ActionExecutedContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
             var AcceptHeaderPresent = context.HttpContext.Request.Headers.ContainsKey("Accept");
 
@@ -22,7 +22,7 @@ namespace CompanyEmployees.ActionFilters
 
             var mediaType = context.HttpContext.Request.Headers["Accept"].FirstOrDefault();
 
-            if(!MediaTypeHeaderValue.TryParse(mediaType, out MediaTypeHeaderValue outMediaType))
+            if (!MediaTypeHeaderValue.TryParse(mediaType, out MediaTypeHeaderValue outMediaType))
             {
                 context.Result = new BadRequestObjectResult("Media type not present, Please add Accept header with the required media type.");
                 return;
@@ -31,9 +31,9 @@ namespace CompanyEmployees.ActionFilters
             context.HttpContext.Items.Add("AcceptHeaderMediaType", outMediaType);
         }
 
-        public void OnActionExecuting(ActionExecutingContext context)
+        public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
