@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using LoggerService;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -39,6 +40,22 @@ namespace CompanyEmployees.Extensions
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
            services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+        public static void ConfigureResponseCahching(this IServiceCollection services) =>
+            services.AddResponseCaching();
+
+        public static void ConfigureHttpCahcheHeaders(this IServiceCollection services) =>
+            services.AddHttpCacheHeaders(
+                    (expirationOpt) =>
+                    {
+                        expirationOpt.MaxAge = 65;
+                        expirationOpt.CacheLocation = CacheLocation.Private;
+                    },
+                    (validationOpt) =>
+                    {
+                        validationOpt.MustRevalidate = true;
+                    }
+                );
 
         public static void ConfigureApiVersion(this IServiceCollection services) =>
          services.AddApiVersioning(opt =>

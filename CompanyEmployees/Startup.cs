@@ -44,6 +44,8 @@ namespace CompanyEmployees
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
             services.AddScoped<EmployeeLinks>();
             services.ConfigureApiVersion();
+            services.ConfigureResponseCahching();
+            services.ConfigureHttpCahcheHeaders();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -54,7 +56,10 @@ namespace CompanyEmployees
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
-            }).AddNewtonsoftJson()
+                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
+            })
+                
+            .AddNewtonsoftJson()
             .AddXmlDataContractSerializerFormatters()
             .AddCustomCSVFormatter();
 
@@ -83,6 +88,10 @@ namespace CompanyEmployees
             {
                 ForwardedHeaders = ForwardedHeaders.All
             });
+
+            app.UseResponseCaching();
+
+            app.UseHttpCacheHeaders();
 
             app.UseRouting();
 
