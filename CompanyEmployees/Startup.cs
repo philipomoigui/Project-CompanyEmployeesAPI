@@ -50,6 +50,8 @@ namespace CompanyEmployees
             services.AddMemoryCache();
             services.ConfigureRateLimitingOption();
             services.AddHttpContextAccessor();
+            services.AddAuthentication();
+            services.ConfigureIdentity();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -100,6 +102,8 @@ namespace CompanyEmployees
             app.UseIpRateLimiting();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
