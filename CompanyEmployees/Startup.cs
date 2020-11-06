@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using AutoMapper;
 using CompanyEmployees.ActionFilters;
 using CompanyEmployees.Extensions;
@@ -46,6 +47,9 @@ namespace CompanyEmployees
             services.ConfigureApiVersion();
             services.ConfigureResponseCahching();
             services.ConfigureHttpCahcheHeaders();
+            services.AddMemoryCache();
+            services.ConfigureRateLimitingOption();
+            services.AddHttpContextAccessor();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -92,6 +96,8 @@ namespace CompanyEmployees
             app.UseResponseCaching();
 
             app.UseHttpCacheHeaders();
+
+            app.UseIpRateLimiting();
 
             app.UseRouting();
 
