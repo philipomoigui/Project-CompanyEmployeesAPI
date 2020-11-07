@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20201106083248_CreatingIdentityTables.cs" />
     <Compile Remove="Migrations\20201106083248_CreatingIdentityTables.Designer.cs" />
+    <Compile Remove="Migrations\20201107164937_ExtendedIdentityUser.cs" />
+    <Compile Remove="Migrations\20201107164937_ExtendedIdentityUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
