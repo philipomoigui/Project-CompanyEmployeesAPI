@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyEmployees.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20201107131445_AddRolesToDB")]
+    partial class AddRolesToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,17 +147,17 @@ namespace CompanyEmployees.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2b640438-7204-41a0-8e8b-76112c0df894",
-                            ConcurrencyStamp = "e7c099ec-ecc6-4b54-b048-e9ffafd6f2a5",
+                            Id = "a3ebbd0a-c235-4310-b12a-b5ff233113b7",
+                            ConcurrencyStamp = "faf8b531-bfd9-4977-8355-e0fbd5b462fd",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "19a3f154-58ef-4918-8cc7-745a5f03cb49",
-                            ConcurrencyStamp = "cb6bf9d1-2a4a-4049-b882-840c2af173a5",
+                            Id = "b8da8da6-12a6-4c8f-86af-c9866d4c8a83",
+                            ConcurrencyStamp = "ae47092c-d6ee-4182-b59e-909d79366ba2",
                             Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
+                            NormalizedName = "Administrator"
                         });
                 });
 
