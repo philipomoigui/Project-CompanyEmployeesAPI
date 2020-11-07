@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
+using Repository;
 using Repository.DataShaping;
 using System.IO;
 
@@ -52,6 +53,8 @@ namespace CompanyEmployees
             services.AddHttpContextAccessor();
             services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
