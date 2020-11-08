@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CompanyEmployees</name>
+    </assembly>
+    <members>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.GetCompanies">
+            <summary>
+            Get A list of All Companies
+            </summary>
+            <returns>A List of Companies</returns>
+            <response code="200">Returns the list of Companies</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.GetCompany(System.Guid)">
+            <summary>
+            Get A Company Through its ID
+            </summary>
+            <param name="id"></param>
+            <returns>The Company with the passed ID</returns>
+            <response code="200">Returns the requested Company</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.GetCompanyCollection(System.Collections.Generic.IEnumerable{System.Guid})">
+            <summary>
+            Get A Collection of Company by providing ids of comma seperated companies as Parameter
+            </summary>
+            <param name="ids"></param>
+            <returns>Returns a collection of Companies</returns>
+            <response code="400">If No id is passed as parameter</response>
+            <response code="404">If some or all the id(s) is not valid</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.CreateCompany(Entities.DataTransferObjects.CreateCompanyDto)">
+            <summary>
+            Create A Company
+            </summary>
+            <param name="company"></param>
+            <returns>A newly Created Company</returns>
+            <response code="400">If the item is null</response>
+            <response code="422">If the model is not valid</response>
+            <response code="201">Returns the newly created Item</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.CreateCompanyCollection(System.Collections.Generic.IEnumerable{Entities.DataTransferObjects.CreateCompanyDto})">
+            <summary>
+            Create A Collection of Company
+            </summary>
+            <param name="companyCollection"></param>
+            <returns>Create a collection of companies</returns>
+            <response code="400">If request body collection is null</response>
+            <response code="201">return collection of company created</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.DeleteCompany(System.Guid)">
+            <summary>
+            Delete A Company
+            </summary>
+            <param name="id"></param>
+            <returns>A No content 204 success message</returns>
+            <response code="404">If the id is not valid</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.UpdateCompany(System.Guid,Entities.DataTransferObjects.UpdateCompanyDto)">
+            <summary>
+            Update A Company
+            </summary>
+            <param name="id"></param>
+            <param name="company"></param>
+            <returns>A No Content success Message</returns>
+            <response code="404">If either the employee Id or company Id is not valid</response>
+            <response code="400">if the request body is null</response>
+            <response code="422">If the model is not valid</response>
+            <response code="204">Returns a 204 No content message</response>
+        </member>
+        <member name="M:CompanyEmployees.Controllers.CompaniesController.GetCompaniesOptions">
+            <summary>
+            Get Options Avaliable for this Actions
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -14,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Controllers
 {
-    [ApiVersion("1.0")]
+    //[ApiVersion("1.0")]
     [Route("api/companies")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     //[ResponseCache(CacheProfileName = "120SecondsDuration")]
     public class CompaniesController : ControllerBase
     {
@@ -31,7 +32,14 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
 
+
+        /// <summary>
+        /// Get A list of All Companies
+        /// </summary>
+        /// <returns>A List of Companies</returns>
+        /// <response code="200">Returns the list of Companies</response>
         [HttpGet(Name = "GetCompanies"), Authorize(Roles = "Manager")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> GetCompanies()
         {
             var companies = await _repository.Company.GetAllCompaniesAsync(trackChanges: false);
@@ -41,6 +49,13 @@ namespace CompanyEmployees.Controllers
             return Ok(companiesDto);
         }
 
+
+        /// <summary>
+        /// Get A Company Through its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The Company with the passed ID</returns>
+        /// <response code="200">Returns the requested Company</response>
         [HttpGet("{id}", Name = "CompanyById")]
         //[ResponseCache(Duration = 60)]
         [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
@@ -60,7 +75,17 @@ namespace CompanyEmployees.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Get A Collection of Company by providing ids of comma seperated companies as Parameter
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns>Returns a collection of Companies</returns>
+        /// <response code="400">If No id is passed as parameter</response>
+        /// <response code="404">If some or all the id(s) is not valid</response>
         [HttpGet("collection/({ids})", Name = "CompanyCollection")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetCompanyCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))]IEnumerable<Guid> ids)
         {
             if(ids == null)
@@ -81,8 +106,21 @@ namespace CompanyEmployees.Controllers
             return Ok(companiesToReturn);
         }
 
+
+        /// <summary>
+        /// Create A Company
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns>A newly Created Company</returns>
+        /// <response code="400">If the item is null</response>
+        /// <response code="422">If the model is not valid</response>
+        /// <response code="201">Returns the newly created Item</response>
+
         [HttpPost(Name = "CreateCompany")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(422)]
+        [ProducesResponseType(201)]
         public async Task<IActionResult> CreateCompany([FromBody]CreateCompanyDto company)
         {
             var companyEntity = _mapper.Map<Company>(company);
@@ -95,7 +133,17 @@ namespace CompanyEmployees.Controllers
             return CreatedAtRoute("CompanyById", new { id = companyToReturn.Id }, companyToReturn);
         }
 
+        /// <summary>
+        /// Create A Collection of Company
+        /// </summary>
+        /// <param name="companyCollection"></param>
+        /// <returns>Create a collection of companies</returns>
+        /// <response code="400">If request body collection is null</response>
+        /// <response code="201">return collection of company created</response>
+
         [HttpPost("collection")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(201)]
         public async Task<IActionResult> CreateCompanyCollection([FromBody] IEnumerable<CreateCompanyDto> companyCollection)
         {
             if(companyCollection == null)
@@ -118,8 +166,17 @@ namespace CompanyEmployees.Controllers
             return CreatedAtRoute("CompanyCollection", new { ids }, companyCollectionToReturn);
         }
 
+        /// <summary>
+        /// Delete A Company
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A No content 204 success message</returns>
+        /// <response code="404">If the id is not valid</response>
+
         [HttpDelete("{id}")]
         [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(201)]
         public async Task<IActionResult> DeleteCompany(Guid id)
         {
             var company = HttpContext.Items["company"] as Company;
@@ -130,6 +187,16 @@ namespace CompanyEmployees.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update A Company
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="company"></param>
+        /// <returns>A No Content success Message</returns>
+        /// <response code="404">If either the employee Id or company Id is not valid</response>
+        /// <response code="400">if the request body is null</response>
+        /// <response code="422">If the model is not valid</response>
+        /// <response code="204">Returns a 204 No content message</response>
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ServiceFilter(typeof(ValidateCompanyExistsAttribute))]
@@ -143,6 +210,10 @@ namespace CompanyEmployees.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Get Options Avaliable for this Actions
+        /// </summary>
+        /// <returns></returns>
         [HttpOptions]
         public IActionResult GetCompaniesOptions()
         {
