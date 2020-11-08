@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Routing;
 
 namespace CompanyEmployees.Controllers
 {
+    //Swagger Documentation URL -- "http://www.companyemployees.philipomoigui/swagger/index.html"
+
     [Route("api")]
     [ApiController]
     public class RootController : ControllerBase
