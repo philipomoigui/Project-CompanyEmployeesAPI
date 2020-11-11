@@ -45,9 +45,13 @@ namespace CompanyEmployees.Extensions
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddScoped<ILoggerManager, LoggerManager>();
 
+        //public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
+        //    services.AddDbContext<RepositoryContext>(opts =>
+        //        opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CompanyEmployees")));
+
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
-            services.AddDbContext<RepositoryContext>(opts =>
-                opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CompanyEmployees")));
+            services.AddDbContext<RepositoryContext>(o =>
+                o.UseInMemoryDatabase("CompanyEmployees"));
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
            services.AddScoped<IRepositoryManager, RepositoryManager>();
